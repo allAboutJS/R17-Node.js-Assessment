@@ -1,0 +1,8 @@
+{
+  "name": "payment-instruction-parser",
+  "version": "1.0.0",
+  "description": "Parser for payment instruction",
+  "main": "index.js",
+  "author": "Onah Victor",
+  "license": "MIT"
+}
