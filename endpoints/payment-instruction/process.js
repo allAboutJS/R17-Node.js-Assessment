@@ -1,6 +1,6 @@
 const { createHandler } = require('@app-core/server');
 const { appLogger } = require('@app-core/logger');
-const paymentInstructionService = require('@app/services/payment/parse-instructions');
+const paymentInstructionService = require('@app/services/payment-processor/parse-instruction');
 
 module.exports = createHandler({
   path: '/payment-instructions',
@@ -11,10 +11,11 @@ module.exports = createHandler({
   },
   handler(rc, helpers) {
     const payload = rc.body;
-    const parsed = paymentInstructionService(payload);
+    const response = paymentInstructionService(payload);
     return {
       status: helpers.http_statuses.HTTP_200_OK,
-      data: parsed,
+      data: response,
+      message: 'Instruction processed successfully',
     };
   },
 });

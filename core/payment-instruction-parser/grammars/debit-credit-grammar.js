@@ -4,7 +4,7 @@ const {
   ACTION,
   COMPLEMENT_TYPE,
   SUPPLEMENT_TYPE,
-} = require('../parser/constants');
+} = require('../constants');
 
 /** The grammar outline for credit/debit transactions */
 const DEBIT_CREDIT_GRAMMAR = [

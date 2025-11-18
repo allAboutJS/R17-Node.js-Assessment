@@ -1,8 +1,9 @@
-const appError = require('@app-core/errors/app-error');
+const { PaymentMessages } = require('@app/messages');
+const { throwAppError } = require('@app-core/errors');
 const GRAMMARS = require('../grammars');
-const evalTransactionType = require('./eval-transaction-type');
 const parseMorphology = require('./parse-morphology');
-const { ERROR_CONTEXT } = require('./constants');
+const { evalTransactionType } = require('../helpers');
+const { PAYMENT_CODES, BASE_ERROR } = require('../constants');
 
 /** Parses a stream of tokens and verifies the instruction syntax based on the grammer */
 function parse(tokenList) {
@@ -23,8 +24,8 @@ function parse(tokenList) {
     // FIRST TOKEN → DETERMINE GRAMMAR
     if (index === 0) {
       if (token.action === undefined)
-        appError('Malformed instruction. Found extra tokens', 'SYS03', {
-          context: ERROR_CONTEXT,
+        throwAppError(PaymentMessages.MALFORMED_INSTRUCTION, PAYMENT_CODES.MALFORMED, {
+          details: BASE_ERROR,
         });
       transactionType = token.action;
       activeGrammar = [...GRAMMARS[transactionType]];
@@ -32,8 +33,8 @@ function parse(tokenList) {
     } else {
       const morphRule = activeGrammar[index];
       if (!morphRule)
-        appError('Malformed instruction. Found extra tokens', 'SYS03', {
-          context: ERROR_CONTEXT, // Base error data for system errors
+        throwAppError(PaymentMessages.MALFORMED_INSTRUCTION, PAYMENT_CODES.MALFORMED, {
+          details: BASE_ERROR, // Base error data for system errors
         });
 
       const morphResult = parseMorphology(transactionType, morphRule, token, handleOptionalRules);

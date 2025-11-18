@@ -4,7 +4,8 @@ const {
   SUPPLEMENT_TYPE,
   COMPLEMENT_TYPE,
   ACTION,
-} = require('./constants');
+} = require('../constants');
+const { isWhitespace } = require('../helpers');
 
 /** Recieves the raw instruction and returns a stream of tokens */
 function lex(sourceText) {
@@ -34,7 +35,7 @@ function lex(sourceText) {
     const char = sourceText[i];
 
     // Skip whitespace
-    if (/\p{White_Space}/u.test(char)) {
+    if (isWhitespace(char)) {
       // eslint-disable-next-line no-continue
       continue;
     }

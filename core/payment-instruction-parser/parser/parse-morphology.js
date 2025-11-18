@@ -1,5 +1,6 @@
-const appError = require('@app-core/errors/app-error');
-const { ERROR_CONTEXT } = require('./constants');
+const { PaymentMessages } = require('@app/messages');
+const { throwAppError } = require('@app-core/errors');
+const { PAYMENT_CODES, BASE_ERROR } = require('../constants');
 
 /** Parses and validates an entry in the grammar (morphology) against a token at the same position */
 function parseMorphology(transactionType, morphRule, token, handleOptionalRule) {
@@ -15,15 +16,15 @@ function parseMorphology(transactionType, morphRule, token, handleOptionalRule) 
 
   // TYPE CHECK
   if (expectedType && token.type !== expectedType) {
-    appError('Malformed instruction', 'SYS03', {
-      context: ERROR_CONTEXT,
+    throwAppError(PaymentMessages.MALFORMED_INSTRUCTION, PAYMENT_CODES.MALFORMED, {
+      details: BASE_ERROR,
     });
   }
 
   // KEYWORD TYPE CHECK
   if (expectedKeywordType && token.keywordType !== expectedKeywordType) {
-    appError('Invalid keyword order', 'SYS02', {
-      context: ERROR_CONTEXT,
+    throwAppError(PaymentMessages.INVALID_KEYWORD_ORDER, PAYMENT_CODES.BAD_KEYWORD_ORDER, {
+      details: BASE_ERROR,
     });
   }
 
@@ -36,8 +37,8 @@ function parseMorphology(transactionType, morphRule, token, handleOptionalRule) 
           : expectedComplement;
 
       if (requiredComplement !== token.complementType) {
-        appError('Missing required keyword', 'SYS01', {
-          context: ERROR_CONTEXT,
+        throwAppError(PaymentMessages.MISSING_KEYWORD, PAYMENT_CODES.MISSING_KEYWORD, {
+          details: BASE_ERROR,
         });
       }
     } else {
@@ -47,8 +48,8 @@ function parseMorphology(transactionType, morphRule, token, handleOptionalRule) 
           : expectedSupplement;
 
       if (requiredSupplement !== token.supplementType) {
-        appError('Missing required keyword', 'SYS01', {
-          context: ERROR_CONTEXT,
+        throwAppError(PaymentMessages.MISSING_KEYWORD, PAYMENT_CODES.MISSING_KEYWORD, {
+          details: BASE_ERROR,
         });
       }
     }
@@ -60,8 +61,8 @@ function parseMorphology(transactionType, morphRule, token, handleOptionalRule) 
       typeof expectedAction === 'function' ? expectedAction(transactionType) : expectedAction;
 
     if (requiredAction !== token.action) {
-      appError('Missing required keyword', 'SYS01', {
-        context: ERROR_CONTEXT,
+      throwAppError(PaymentMessages.MISSING_KEYWORD, PAYMENT_CODES.MISSING_KEYWORD, {
+        details: BASE_ERROR,
       });
     }
   }

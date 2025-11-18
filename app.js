@@ -26,7 +26,7 @@ const ENDPOINT_CONFIGS = [
     path: './endpoints/onboarding/',
   },
   {
-    path: './endpoints/payment/',
+    path: './endpoints/payment-instruction/',
   },
 ];
 

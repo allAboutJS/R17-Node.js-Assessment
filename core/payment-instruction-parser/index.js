@@ -1,3 +1,3 @@
-const execute = require('./executor/execute');
+const execute = require('./execute');
 
 module.exports = { execute };

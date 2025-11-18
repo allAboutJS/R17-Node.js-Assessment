@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@app-core/errors@file:core/errors":
+"@app-core/errors@./core/errors":
   version "1.0.0"
 
 "@app-core/handlebars@file:core/handlebars":
@@ -58,7 +58,7 @@
 "@app-core/validator@file:core/validator-vsl":
   version "0.0.0"
 
-"@app/messages@file:messages":
+"@app/messages@./messages":
   version "1.0.0"
 
 "@app/middlewares@file:middlewares":

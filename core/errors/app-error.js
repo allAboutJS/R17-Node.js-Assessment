@@ -2,7 +2,7 @@
  * Throw an app error
  * @param {String} errorMessage
  * @param {String} [errorCode]
- * @param {{context:any, details:any}} [options]
+ * @param {{details:any, details:any}} [options]
  */
 function appError(errorMessage, errorCode = 'ERR', options = {}) {
   const error = new Error(errorMessage);
