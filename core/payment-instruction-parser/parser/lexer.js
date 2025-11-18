@@ -40,7 +40,7 @@ function lex(sourceText) {
       continue;
     }
     const startIndex = i;
-    while (!/\p{White_Space}/u.test(sourceText[i]) && i < sourceText.length) {
+    while (!isWhitespace(char)(sourceText[i]) && i < sourceText.length) {
       i++;
     }
 
