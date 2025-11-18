@@ -3,7 +3,7 @@ import ../commons.go
 Identity {
   _id string<isUnique|indexed> // Unique identifier (ULID)
   email string<isUnique|indexed> // User's email address
-  password string // Hashed password (bcrypt)
+  password string // Hashed password (bcryptjs)
   first_name string // User's first name
   last_name string // User's last name
   middle_name? string // User's middle name (optional)

@@ -97,9 +97,9 @@ Hash and validate sensitive data:
 ```javascript
 const { hash } = require('@app-core/security');
 
-// Supported: 'md5', 'sha1', 'sha256', 'sha512', 'bcrypt'
-const hashedPassword = await hash.create('myPassword123', 'bcrypt');
-const isValid = await hash.validate('myPassword123', hashedPassword, 'bcrypt'); // true
+// Supported: 'md5', 'sha1', 'sha256', 'sha512', 'bcryptjs'
+const hashedPassword = await hash.create('myPassword123', 'bcryptjs');
+const isValid = await hash.validate('myPassword123', hashedPassword, 'bcryptjs'); // true
 ```
 
 ### 🎲 Randomness & UUIDs
@@ -322,7 +322,7 @@ async function createIdentity(serviceData, options = {}) {
     }
 
     // Hash password
-    data.password = await hash.create(data.password, 'bcrypt');
+    data.password = await hash.create(data.password, 'bcryptjs');
 
     // Create user
     const user = await Identity.create(data);
@@ -978,7 +978,7 @@ async function createProfile(serviceData, options = {}) {
 
 ### Security Best Practices
 
-- ✅ Hash all passwords with bcrypt
+- ✅ Hash all passwords with bcryptjs
 - ✅ Use ULID for all record IDs
 - ✅ Validate and sanitize all inputs
 - ✅ Never expose internal error details to clients

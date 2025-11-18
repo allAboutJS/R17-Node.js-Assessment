@@ -1,5 +1,5 @@
 const { createHash, createHmac } = require('crypto');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 const SALT_ROUNDS = parseInt(process.env.HASH_SALT_ROUNDS, 10) || 10;
 
@@ -41,24 +41,24 @@ function validate(value, hashedValue, options = {}) {
 }
 
 /**
- * Create a bcrypt hash
+ * Create a bcryptjs hash
  * @async
  * @param {string} value - the data to be hashed
  * @returns {Promise<string>}
  */
 function createBHash(value) {
-  return bcrypt.hash(value, SALT_ROUNDS);
+  return bcryptjs.hash(value, SALT_ROUNDS);
 }
 
 /**
- * Validate a string against a bcrypt hash string
+ * Validate a string against a bcryptjs hash string
  * @async
  * @param {string} - the plain string
- * @param {string} hashedValue - the bcrypt hash string
+ * @param {string} hashedValue - the bcryptjs hash string
  * @returns {Promise<boolean>}
  */
 function validateBHash(value, hashedValue) {
-  return bcrypt.compare(value, hashedValue);
+  return bcryptjs.compare(value, hashedValue);
 }
 
 module.exports = { create, validate, createBHash, validateBHash };

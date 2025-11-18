@@ -886,7 +886,7 @@ const id = ulid(); // Generate unique ID
 
 // Security (if needed)
 const { hash, redact } = require('@app-core/security');
-const hashed = await hash.create('password', 'bcrypt');
+const hashed = await hash.create('password', 'bcryptjs');
 ```
 
 ### String Manipulation (No Regex Allowed)
