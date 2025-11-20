@@ -70,11 +70,14 @@ function execute(instruction, accounts) {
     if (execute_by) {
       const [year, month, date] = execute_by.split('-');
       execDate = new Date(Date.UTC(year, month - 1, date));
-    } else execDate = new Date();
+    }
 
-    const statusCode = execDate > new Date() ? PAYMENT_CODES.PENDING : PAYMENT_CODES.SUCCESS;
+    const now = new Date();
+    const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const statusCode =
+      execDate && execDate > todayUTC ? PAYMENT_CODES.PENDING : PAYMENT_CODES.SUCCESS;
+
     let statusReason;
-
     if (statusCode === PAYMENT_CODES.SUCCESS) {
       statusReason = 'Transaction executed successfully';
 
@@ -88,7 +91,7 @@ function execute(instruction, accounts) {
     return {
       status: 'success',
       ...data,
-      execute_by,
+      execute_by: execute_by || null,
       status_code: statusCode,
       status_reason: statusReason,
       accounts,

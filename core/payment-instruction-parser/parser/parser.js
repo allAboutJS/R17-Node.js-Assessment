@@ -9,8 +9,8 @@ const { PAYMENT_CODES, BASE_ERROR } = require('../constants');
 function parse(tokenList) {
   let transactionType = null;
   let activeGrammar = null;
-  const result = {};
   let index = 0;
+  const result = {};
 
   function handleOptionalRules(optionalRules) {
     // Replace the current rule with optional rules
@@ -48,7 +48,6 @@ function parse(tokenList) {
     index++;
   }
 
-  if (!result.execute_by) result.execute_by = null;
   return result;
 }
 
